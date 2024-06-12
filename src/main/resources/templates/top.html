@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>メモアプリ</title>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+
+  <style>
+  h1 {
+    font-size: 18pt;
+  }
+  </style>
+</head>
+  <body>
+ <h2>トップ画面</h2>
+  <br>
+	<button><a th:href="@{/create}">新規作成</a></button>
+	<button><a href="@{/garbage-can}">ゴミ箱</a></button>
+<table>
+<tr>
+<th>ID</th>
+<th>タイトル</th>
+<th>メモ内容</th>
+</tr>
+	<tr th:each="memoInfo:${memoInfoList}">
+		<th th:text="${memoInfo.id}">メモID</th>
+		<th th:text="${memoInfo.title}">メモタイトル</th>
+		<th th:text="${memoInfo.content}">メモタイトル</th>
+	</tr>
+</table>
+</body>
+</html>

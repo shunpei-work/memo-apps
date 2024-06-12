@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>メモアプリ</title>
+</head>
+<body>
+	<h2>新規作成</h2>
+	<form th:action="@{createConfirm}" method="post">
+		<label for="title">タイトル</label><br> 
+		<input type="text" id="title" name="title"><br> 
+		<label for="content">メモ内容</label><br>
+		<input type="text" id="content" name="content"><br>
+		<button type="submit">作成</button>
+	</form>
+</body>
+</html>
