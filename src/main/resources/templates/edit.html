@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>メモアプリ</title>
+</head>
+<body>
+	<h2>編集画面</h2>
+	<div th:each="memoForm:${memoForm}">
+	<h3>タイトル：<a th:text="${memoForm.title}">メモタイトル</a><br></h3>
+		<form th:action="@{/top/edit/{id}(id=${memoForm.id})}" method="post" th:object="${memoForm}">
+			<input type="hidden" name="title" th:value="${memoForm.title}">
+			<textarea name="content">[[${memoForm.content}]]</textarea>
+			<input type="submit" value="編集">
+		</form>
+	</div>
+</body>
+</html>
