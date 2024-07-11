@@ -18,6 +18,15 @@ h1 {
 	<button>
 		<a href="@{/garbage-can}">ゴミ箱</a>
 	</button>
+	 <form th:action="@{/top/{word}}" method="post">
+        <input type="text" name="word" placeholder="検索するタイトルを入力">
+        <input type="submit" value="検索">
+      </form>
+      <div th:each="searchList:${memoSearchList}">
+		<a th:text="${searchList.title}">メモタイトル</a><br>
+		<textarea th:text="${searchList.content}" readonly>メモ内容</textarea>
+      </div>
+      
 	<div th:each="memoInfo:${memoInfoList}">
 		<a th:text="${memoInfo.title}">メモタイトル</a><br>
 		<textarea th:text="${memoInfo.content}" readonly>メモ内容</textarea>
@@ -29,5 +38,6 @@ h1 {
 	</div>
 	<p th:text="${deleteMsg}"></p>
 	<p th:text="${editMsg}"></p>
+	<button><a th:href="@{/top}">トップ</a></button>
 </body>
 </html>

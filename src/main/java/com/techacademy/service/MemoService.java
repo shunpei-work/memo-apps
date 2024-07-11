@@ -51,4 +51,14 @@ public class MemoService {
     public Memo findById(long id) {
         return memoRepository.findById(id).get();
     }
+    
+    /**
+     * 検索機能
+     * タイトルに検索文字列が含まれるリスト取得
+     * @param word 検索ワード
+     * @return List<Memo> メモリスト
+     */
+    public List<Memo> findByTitle(String word) {
+        return memoRepository.findByTitle(word);
+    }
 }

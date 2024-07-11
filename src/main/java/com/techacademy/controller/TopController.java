@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,7 +72,7 @@ public class TopController {
      * 更新ページアクセス
      */
     @GetMapping("top/edit/{id}")
-    public String edit(@PathVariable("id")long id,Model model,@ModelAttribute Memo memo) {
+    public String edit(@PathVariable("id")long id,Model model) {
         Memo memoForm = memoService.findById(id);
         model.addAttribute("memoForm",memoForm);
         return "edit";
@@ -98,6 +97,17 @@ public class TopController {
             model.addAttribute("editMsg",editMsg);
             editFlag = false;
         }
+        return "top";
+    }
+    
+    /**
+     * 検索機能
+     */
+    @PostMapping("top/{word}")
+    public String searchWord(@RequestParam("word")String word,Model model){
+        // 検索文字列が含まれるリストのみ取得して表示させる
+        List<Memo> memoSearchList = memoService.findByTitle(word);
+        model.addAttribute("memoSearchList",memoSearchList);
         return "top";
     }
 }
