@@ -1,5 +1,7 @@
 package com.techacademy.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +62,19 @@ public class MemoService {
      */
     public List<Memo> findByTitle(String word) {
         return memoRepository.findByTitle(word);
+    }
+    
+    /**
+     * 作成日フォーマッター
+     * ”yyyy-MM-dd”を”yyyy/MM/dd”に変換
+     * @param LocalDate 現在時間
+     * @return String型に変換した日付
+     */
+    public String format(LocalDate currentDate) {
+        // 日付フォーマットを定義
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        // フォーマッターを適用
+        String formatDate = currentDate.format(formatter);       
+        return formatDate;
     }
 }

@@ -25,6 +25,11 @@ public class Memo {
     private String title;
     @Column(name = "content")
     private String content;
+    // カラム追加は下記を追記するだけでDBのCreare文に追加される
+    @Column(name = "createDate")
+    private String createDate;
+    @Column(name = "uddateDate")
+    private String  updateDate;
     
     public long getId() {
         return id;
@@ -43,5 +48,17 @@ public class Memo {
     }
     public void setContent(String content) {
         this.content = content;
+    }
+    public String getCreateDate() {
+        return createDate;
+    }
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+    public String getUpdateDate() {
+        return updateDate;
+    }
+    public void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
     }
 }

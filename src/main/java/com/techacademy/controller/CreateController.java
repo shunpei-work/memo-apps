@@ -1,5 +1,8 @@
 package com.techacademy.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +16,7 @@ import com.techacademy.service.MemoService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * メモの新規作成をするクラス
- * 初期表示（新規作成画面）
+ * 新規登録機能
  */
 
 @Controller
@@ -34,11 +36,19 @@ public class CreateController {
         Memo memo = new Memo();
         memo.setTitle(title);
         memo.setContent(content);
+        
+        // 作成日を取得、LocalDate型に変換
+        LocalDate currentDate = LocalDateTime.now().toLocalDate();
+        String createDate = memoService.format(currentDate);       
+        memo.setCreateDate(createDate);
+        
         // フォームに入力された値をDBに登録
         memoService.save(memo);
+        
         // 画面に表示するため、モデルに追加
         model.addAttribute("title",title);
         model.addAttribute("content",content);
+        model.addAttribute("createDate",createDate);
         return "createConfirm";
     }
     

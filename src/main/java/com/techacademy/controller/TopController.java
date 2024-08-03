@@ -1,5 +1,7 @@
 package com.techacademy.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,12 +85,16 @@ public class TopController {
      */
     @PostMapping("top/edit/{id}")
     public String update(Memo memo,Model model) {
-        try {
-            memoService.save(memo);
-            editFlag = true;
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        
+        // 更新日を取得、LocalDate型に変換
+        LocalDate currentDate = LocalDateTime.now().toLocalDate();
+        String updateDate = memoService.format(currentDate);       
+        memo.setUpdateDate(updateDate);
+        model.addAttribute("updateDate",updateDate);
+        
+        // フォームに入力された値をDBに登録
+        memoService.save(memo);
+        
         // 値を全件取得して表示させる
         List<Memo> memoInfoList = memoService.findAll();
         model.addAttribute("memoInfoList",memoInfoList);
@@ -102,6 +108,7 @@ public class TopController {
     
     /**
      * 検索機能
+     * フォームに入力した文字列のタイトルを取得
      */
     @PostMapping("top/{word}")
     public String searchWord(@RequestParam("word")String word,Model model){
@@ -110,4 +117,5 @@ public class TopController {
         model.addAttribute("memoSearchList",memoSearchList);
         return "top";
     }
+    
 }

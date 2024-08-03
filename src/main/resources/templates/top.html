@@ -11,6 +11,7 @@ h1 {
 </style>
 </head>
 <body>
+<header>
 	<h2>トップ画面</h2>
 	<button>
 		<a th:href="@{/create}">新規作成</a>
@@ -18,24 +19,33 @@ h1 {
 	<button>
 		<a href="@{/garbage-can}">ゴミ箱</a>
 	</button>
+	<!-- 検索フォーム -->
 	 <form th:action="@{/top/{word}}" method="post">
         <input type="text" name="word" placeholder="検索するタイトルを入力">
         <input type="submit" value="検索">
       </form>
+</header>
+
+	<!--　検索結果 -->
       <div th:each="searchList:${memoSearchList}">
 		<a th:text="${searchList.title}">メモタイトル</a><br>
 		<textarea th:text="${searchList.content}" readonly>メモ内容</textarea>
       </div>
-      
+
+	<!-- メモリスト出力 -->
 	<div th:each="memoInfo:${memoInfoList}">
 		<a th:text="${memoInfo.title}">メモタイトル</a><br>
 		<textarea th:text="${memoInfo.content}" readonly>メモ内容</textarea>
 		<form th:action="@{/top/delete}" method="post">
 			<input type="hidden" id="id" name="id" th:value="${memoInfo.id}">
+			<div>メモ作成日：<span th:text="${memoInfo.createDate}">メモ作成日</span></div>
+			<div>メモ更新日：<span th:text="${memoInfo.updateDate}">メモ更新日</span></div>
 			<input type="submit" value="削除">
 		</form>
 		<a th:href="@{/top/edit/{id}(id=${memoInfo.id})}">編集</a>
+		<hr>
 	</div>
+	
 	<p th:text="${deleteMsg}"></p>
 	<p th:text="${editMsg}"></p>
 	<button><a th:href="@{/top}">トップ</a></button>
