@@ -19,6 +19,7 @@ public class MemoService {
     
     /**
      * 全件取得機能
+     * DBに保持されているメモ情報を全て取得する
      * @return List<Memo>
      */
     @Transactional
@@ -26,19 +27,31 @@ public class MemoService {
         return memoRepository.findAll();
     }
     
-    // 登録機能
+    /**
+     * 保存機能
+     * メモ情報をDBに保存する
+     * @param memo
+     */
     @Transactional
     public void save(Memo memo) {
         memoRepository.saveAndFlush(memo);
     }
     
-    // 指定されたIDの列削除機能
+    /**
+     * 削除機能
+     * 指定されたIDの列をDBから削除する
+     * @param id 削除するメモID
+     */
     @Transactional
     public void delete(long id) {
         memoRepository.deleteById(id);
     }
     
-    // 更新機能
+    /**
+     * 更新機能
+     * DBのメモ情報を更新する
+     * @param id 更新するメモID
+     */
     @Transactional
     public void update(Memo memo) {
         memoRepository.save(memo);
@@ -46,7 +59,7 @@ public class MemoService {
     }
     
     /**
-     * IDに紐づくメモ情報を取得
+     * IDに紐づくメモ情報を1件取得
      * @param id メモID
      * @return memo メモオブジェクト
      */
@@ -77,4 +90,7 @@ public class MemoService {
         String formatDate = currentDate.format(formatter);       
         return formatDate;
     }
+    
 }
+
+

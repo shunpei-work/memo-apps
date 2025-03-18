@@ -6,13 +6,14 @@
 </head>
 <body>
 	<h2>新規作成</h2>
-	<form th:action="@{createConfirm}" method="post">
+	<form th:action="@{/createConfirm}" method="post" onsubmit="return subForm()">
 		<label for="title">タイトル</label><br> 
-		<input type="text" name="title"><br> 
+		<input type="text" id="title" name="title"><br> 
 		<label for="content">メモ内容</label><br>
 		<input type="text" name="content"><br>
-		<button type="submit">作成</button>
+		<input type="submit">
 	</form>
 	<button><a th:href="@{/top}">トップ</a></button>
+	<script src="/create.js"></script>
 </body>
 </html>

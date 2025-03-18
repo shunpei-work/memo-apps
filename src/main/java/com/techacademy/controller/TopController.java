@@ -42,6 +42,8 @@ public class TopController {
     
     /**
      * メモリストを取得
+     * @param model
+     * @return Top画面
      */
     @RequestMapping("/top")
     public String getMemoList(Model model){
@@ -58,6 +60,9 @@ public class TopController {
     
     /**
      * 削除機能
+     * @param id 削除するメモID
+     * @param model
+     * @return Top画面
      */
     @RequestMapping("top/delete")
     public String delete(@RequestParam("id")long id,Model model){
@@ -71,7 +76,10 @@ public class TopController {
     }
     
     /**
-     * 更新ページアクセス
+     * 編集画面アクセス
+     * @param id 編集するメモID
+	 * @param model
+	 * @return 編集画面
      */
     @GetMapping("top/edit/{id}")
     public String edit(@PathVariable("id")long id,Model model) {
@@ -82,15 +90,24 @@ public class TopController {
     
     /**
      * 更新機能
+     * @param memo 更新するメモ情報
+     * @param model
+     * @param id 更新するメモID
+	 * @return Top画面
      */
     @PostMapping("top/edit/{id}")
-    public String update(Memo memo,Model model) {
+    public String update(Memo memo,Model model,@PathVariable("id")long id) {
         
         // 更新日を取得、LocalDate型に変換
         LocalDate currentDate = LocalDateTime.now().toLocalDate();
         String updateDate = memoService.format(currentDate);       
         memo.setUpdateDate(updateDate);
         model.addAttribute("updateDate",updateDate);
+        
+        // DBに保存されている登録日を取得
+		String createDate = memoService.findById(id).getCreateDate();
+		memo.setCreateDate(createDate);
+		model.addAttribute("createDate",createDate);
         
         // フォームに入力された値をDBに登録
         memoService.save(memo);
@@ -109,6 +126,9 @@ public class TopController {
     /**
      * 検索機能
      * フォームに入力した文字列のタイトルを取得
+     * @param word 検索文字列
+	 * @param model
+	 * @return Top画面
      */
     @PostMapping("top/{word}")
     public String searchWord(@RequestParam("word")String word,Model model){

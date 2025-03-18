@@ -31,6 +31,12 @@ public class CreateController {
         return "create";
     }
    
+    /**
+     * 登録確認画面に遷移
+     * @param title 画面から入力されたタイトル
+     * @param content 画面から入力されたメモ内容
+     * @return 登録確認画面
+     */
     @RequestMapping(value = "createConfirm",method=RequestMethod.POST)
     public String createConfirm(@RequestParam("title") String title, @RequestParam("content") String content,Model model) {
         Memo memo = new Memo();

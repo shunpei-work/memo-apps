@@ -1,0 +1,50 @@
+
+
+/* src/main/resources/static/top.css */
+.memolist {
+    position: relative;
+    width: 100%;
+    display: flex;
+    overflow-y: scroll;
+    background-color: #f7f7f7; /* 背景色を追加 */
+    padding: 20px; /* パディングを追加 */
+}
+
+.sidebar {
+    width: 100%;
+    background-color: #fff; /* 背景色を追加 */
+    padding: 20px; /* パディングを追加 */
+    border-right: 1px solid #ddd; /* ボーダーを追加 */
+}
+
+.sidebar-item {
+    width: 30%;
+    padding: 20px; /* パディングを追加 */
+}
+
+.content {
+    width: 70%;
+    background-color: #fff; /* 背景色を追加 */
+    padding: 20px; /* パディングを追加 */
+}
+
+/* 以下は追加 */
+.memolist h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.memolist li {
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+.memolist a {
+    text-decoration: none;
+    color: #337ab7;
+}
+
+.memolist a:hover {
+    color: #23527c;
+}

@@ -3,7 +3,7 @@
 <head>
 <title>メモアプリ</title>
 <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
-
+  <link rel="stylesheet" href="/top.css">
 <style>
 h1 {
 	font-size: 18pt;
@@ -21,8 +21,8 @@ h1 {
 	</button>
 	<!-- 検索フォーム -->
 	 <form th:action="@{/top/{word}}" method="post">
-        <input type="text" name="word" placeholder="検索するタイトルを入力">
-        <input type="submit" value="検索">
+        <input type="text" name="word" placeholder="検索するタイトルを入力" id="searchForm">
+        <input type="submit" value="検索" id="searchFormClick">
       </form>
 </header>
 
@@ -33,19 +33,35 @@ h1 {
       </div>
 
 	<!-- メモリスト出力 -->
-	<div th:each="memoInfo:${memoInfoList}">
-		<a th:text="${memoInfo.title}">メモタイトル</a><br>
-		<textarea th:text="${memoInfo.content}" readonly>メモ内容</textarea>
-		<form th:action="@{/top/delete}" method="post">
-			<input type="hidden" id="id" name="id" th:value="${memoInfo.id}">
-			<div>メモ作成日：<span th:text="${memoInfo.createDate}">メモ作成日</span></div>
-			<div>メモ更新日：<span th:text="${memoInfo.updateDate}">メモ更新日</span></div>
-			<input type="submit" value="削除">
-		</form>
-		<a th:href="@{/top/edit/{id}(id=${memoInfo.id})}">編集</a>
-		<hr>
+	<div class="memolist">
+		<div class="sidebar" th:each="memoInfo:${memoInfoList}">
+			<div class="sidebar-item">
+				<div class="memo-title">
+					<a th:text="${memoInfo.title}">メモタイトル</a><br>
+				</div>
+				<div class="memo-action">
+					<form th:action="@{/top/delete}" method="post">
+						<input type="hidden" id="id" name="id" th:value="${memoInfo.id}">
+						<input type="submit" value="削除">
+					</form>
+					<a th:href="@{/top/edit/{id}(id=${memoInfo.id})}">編集</a>
+				</div>
+				<hr>
+			</div>
+
+			<div class="content">
+				<textarea th:text="${memoInfo.content}" readonly>メモ内容</textarea>
+				<br>
+				<p>
+					メモ作成日：<span th:text="${memoInfo.createDate}">メモ作成日</span>
+				</p>
+				<p>
+					メモ更新日：<span th:text="${memoInfo.updateDate}">メモ更新日</span>
+				</p>
+			</div>
+		</div>
 	</div>
-	
+
 	<p th:text="${deleteMsg}"></p>
 	<p th:text="${editMsg}"></p>
 	<button><a th:href="@{/top}">トップ</a></button>
